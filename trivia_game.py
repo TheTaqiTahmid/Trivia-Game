@@ -12,11 +12,11 @@ url = 'https://opentdb.com/api.php?amount=1&category=19&difficulty=easy&type=mul
 
 result = {'correct': 0, 'incorrect': 0, 'total': 0}
 endgame = ''
-while endgame != 'quit':
+while endgame.lower() != 'quit':
     r = requests.get(url)
     n = 1
     if r.status_code != 200:
-        endgame = input("There was a problem at the server. Press enter to try again or write quit to exit: ")
+        endgame = input("There was a problem at the server. Press any keys to try again or write quit to exit: ")
     else:
         data = json.loads(r.text)
         quiz_question = html.unescape(data['results'][0]['question'])
@@ -48,8 +48,8 @@ while endgame != 'quit':
             print("Sorry! your answer is wrong")
             result['incorrect'] += 1
             result['total'] += 1
-    endgame = input("If you want to continue press enter. If you want to exit write quit: ")
+    endgame = input("Press any keys to continue or if you want to exit write 'quit': ")
 
 print("Thanks for playing \n" + "Here is you result, total quiz: {}, correct answer: {}, incorrect answer: {}".format(
     result['total'], result['correct'], result['incorrect']))
-print("You have answered {}% of the questions correctly!".format((result['correct']/result['total'])*100))
+print("You have answered {:.2f}% of the questions correctly!".format(result['correct']/result['total']*100))
