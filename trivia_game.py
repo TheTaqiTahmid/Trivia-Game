@@ -10,7 +10,9 @@ url = 'https://opentdb.com/api.php?amount=1&category=19&difficulty=easy&type=mul
 # print(question)
 # pprint.pprint(question)
 # category = {'General Knowledge': 9, 'Science: Mathematics': 19, 'Science: Computer': 18}
-category = {1: ('General Knowledge', 9), 2: ('Science: Mathematics', 19), 3: ('Science: Computer', 18), 4: ('Entertainment: Film', 11)}
+category = {1: ('General Knowledge', 9), 2: ('Science: Mathematics', 19), 3: ('Science: Computer', 18),
+            4: ('Entertainment: Film', 11)}
+difficulty = {1: 'easy', 2: 'medium', 3: 'hard'}
 j = 1
 for i in category:
     print(str(j) + '. ' + category[i][0])
@@ -27,7 +29,24 @@ while category_response is False:
     except:
         print('Please enter an integer value')
 
-new_url = 'https://opentdb.com/api.php?amount=1&category='+str(category[category_chosen][1])+'&difficulty=easy&type=multiple'
+k = 1
+for i in difficulty:
+    print(str(k) + '. ' + difficulty[i])
+    k += 1
+difficulty_response = False
+while difficulty_response is False:
+    difficulty_chosen = input('\nPlease select your preferred difficulty level: ')
+    try:
+        difficulty_chosen = int(difficulty_chosen)
+        if difficulty_chosen > 3 or difficulty_chosen <= 0:
+            print('Please enter a valid integer')
+        else:
+            difficulty_response = True
+    except:
+        print('Please enter an integer value')
+
+new_url = 'https://opentdb.com/api.php?amount=1&category=' \
+          + str(category[category_chosen][1]) + '&difficulty=' + difficulty[difficulty_chosen] + '&type=multiple'
 
 result = {'correct': 0, 'incorrect': 0, 'total': 0}
 endgame = ''
